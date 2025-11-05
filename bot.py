@@ -91,7 +91,15 @@ Send me a YouTube link or use /download to get started!
         [InlineKeyboardButton("📖 Help", callback_data="help")]
     ])
 
-    await message.reply_text(welcome_text, reply_markup=keyboard)
+    try:
+        await message.reply_photo(
+            photo="https://envs.sh/ukT.jpg",
+            caption=welcome_text,
+            reply_markup=keyboard
+        )
+    except Exception as e:
+        print(f"Error sending photo: {e}")
+        await message.reply_text(welcome_text, reply_markup=keyboard)
 
 @app.on_message(filters.command("help"))
 async def help_command(client: Client, message: Message):
