@@ -14,14 +14,39 @@ from config import Config
 class Downloader:
     def __init__(self):
         self.download_dir = Config.DOWNLOAD_DIR
+        self.cookies_available = False
+        self._check_cookies()
+
+    def _check_cookies(self):
+        """Check if cookies file exists and is accessible"""
+        if Config.USE_COOKIES and os.path.exists(Config.COOKIES_PATH):
+            self.cookies_available = True
+            print(f"✅ Cookies file found: {Config.COOKIES_PATH}")
+        else:
+            self.cookies_available = False
+            if Config.USE_COOKIES:
+                print(f"⚠️ No cookies found at {Config.COOKIES_PATH}. Some YouTube videos may require authentication.")
+            else:
+                print("ℹ️ Cookies disabled in configuration.")
+
+    def _get_base_ydl_opts(self):
+        """Get base yt-dlp options with cookies support"""
+        opts = {}
+        
+        if self.cookies_available:
+            opts['cookiefile'] = Config.COOKIES_PATH
+            print(f"🍪 Using cookies from: {Config.COOKIES_PATH}")
+        
+        return opts
 
     async def get_video_info(self, url: str) -> Optional[Dict[str, Any]]:
         try:
-            ydl_opts = {
+            ydl_opts = self._get_base_ydl_opts()
+            ydl_opts.update({
                 'quiet': True,
                 'no_warnings': True,
                 'extract_flat': False,
-            }
+            })
 
             loop = asyncio.get_event_loop()
             info = await loop.run_in_executor(
@@ -102,8 +127,10 @@ class Downloader:
         try:
             output_template = os.path.join(self.download_dir, '%(title)s.%(ext)s')
 
+            ydl_opts = self._get_base_ydl_opts()
+
             if format_type == 'audio':
-                ydl_opts = {
+                ydl_opts.update({
                     'format': 'bestaudio/best',
                     'outtmpl': output_template,
                     'quiet': False,
@@ -114,14 +141,14 @@ class Downloader:
                         'preferredquality': '192',
                     }],
                     'prefer_ffmpeg': True,
-                }
+                })
             else:
-                ydl_opts = {
+                ydl_opts.update({
                     'format': format_id,
                     'outtmpl': output_template,
                     'quiet': False,
                     'no_warnings': False,
-                }
+                })
 
             if progress_callback:
                 ydl_opts['progress_hooks'] = [progress_callback]

@@ -36,6 +36,10 @@ downloads/
 *.webm
 *.mkv
 
+# YouTube Cookies (contains sensitive authentication data)
+cookies.txt
+cookies*.txt
+
 # Database
 *.db
 *.sqlite

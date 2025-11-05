@@ -8,6 +8,18 @@ Inert Downloader Bot is a powerful Telegram bot built with Pyrogram v2, yt-dlp, 
 
 ## Recent Changes
 
+- **2025-11-05**: YouTube Cookies Authentication System
+  - Added YouTube cookies support to bypass "Sign in to confirm you're not a bot" errors
+  - Implemented automatic cookies detection with fallback behavior
+  - Added USE_COOKIES and COOKIES_PATH environment configuration
+  - Created comprehensive COOKIES_SETUP.md guide
+  - Updated downloader.py with _get_base_ydl_opts() method for cookies integration
+  - Works with both video and audio downloads
+  - Compatible with Render's ephemeral filesystem
+  - Added security best practices to .gitignore for cookies.txt
+  - Updated README.md with cookies setup instructions
+  - Maintains full compatibility with premium system and progress tracking
+
 - **2025-11-05**: Replit Environment Setup
   - Successfully configured for Replit environment
   - Installed all Python dependencies via packager tool
@@ -130,6 +142,19 @@ Required variables in `.env`:
 - FREE_MAX_SIZE_MB: Max file size for free users
 - PREMIUM_MAX_SIZE_MB: Max file size for premium users
 - PAYMENT_QR_IMAGE: Payment QR code image URL
+- USE_COOKIES: Enable YouTube cookies authentication (True/False)
+- COOKIES_PATH: Path to cookies.txt file (default: cookies.txt)
+
+### YouTube Cookies Setup
+
+To fix "Sign in to confirm you're not a bot" errors:
+
+1. Export cookies from your browser using [Get cookies.txt LOCALLY](https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc)
+2. Upload cookies.txt to the root directory
+3. Set USE_COOKIES=True in environment
+4. Restart the bot
+
+See [COOKIES_SETUP.md](COOKIES_SETUP.md) for detailed instructions.
 
 ### Dependencies
 

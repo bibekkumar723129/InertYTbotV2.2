@@ -46,4 +46,8 @@ class Config:
 
     DOWNLOAD_DIR = "downloads"
 
+    # YouTube Cookies Configuration
+    USE_COOKIES = os.getenv("USE_COOKIES", "True").lower() in ("true", "1", "yes")
+    COOKIES_PATH = os.getenv("COOKIES_PATH", "cookies.txt")
+
     os.makedirs(DOWNLOAD_DIR, exist_ok=True)

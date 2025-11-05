@@ -214,6 +214,37 @@ PREMIUM_PLANS = {
 }
 ```
 
+## 🍪 YouTube Authentication Fix (New!)
+
+**Problem:** Some YouTube videos show error: "Sign in to confirm you're not a bot"
+
+**Solution:** Use YouTube cookies to bypass authentication
+
+### Quick Setup:
+
+1. **Export YouTube cookies using browser extension:**
+   - Install [Get cookies.txt LOCALLY](https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc)
+   - Visit YouTube while logged in
+   - Click extension → Export cookies for youtube.com
+   - Save as `cookies.txt`
+
+2. **Add to your project:**
+   - **Replit:** Upload `cookies.txt` to root directory
+   - **Render:** Include in repository or use persistent disk
+   - **VPS:** Upload via SCP to bot directory
+
+3. **Configure environment variables:**
+   ```env
+   USE_COOKIES=True
+   COOKIES_PATH=cookies.txt
+   ```
+
+4. **Restart bot** - It will automatically detect and use cookies!
+
+📚 **See [COOKIES_SETUP.md](COOKIES_SETUP.md) for detailed instructions**
+
+---
+
 ## 🐛 Troubleshooting
 
 **Bot not starting:**
@@ -221,10 +252,17 @@ PREMIUM_PLANS = {
 - Ensure BOT_TOKEN is from BotFather
 - Verify API_ID and API_HASH match
 
-**Downloads failing:**
+**Downloads failing with "Sign in to confirm you're not a bot":**
+- Export fresh YouTube cookies (see 🍪 section above)
+- Ensure cookies.txt is in the correct location
+- Check logs for "✅ Cookies file found" message
+- Re-export cookies if they're older than 30 days
+
+**Downloads failing (other reasons):**
 - Check yt-dlp is installed
 - Verify URL is valid YouTube link
 - Check file size limits
+- Try with cookies enabled (see above)
 
 **Database errors:**
 - MongoDB: Check connection URI
