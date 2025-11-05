@@ -1078,13 +1078,13 @@ async def perform_telegram_upload(client, user_id, filepath, title, format_type,
 
 if __name__ == "__main__":
     print("🚀 Starting Inert Downloader Bot...")
-    print(f"📊 Database: {db.db_type.upper()}")
+    print(f"📊 Database: {db.db_type.upper() if db.db_type else 'UNKNOWN'}")
     print(f"💾 Storage Channel: {Config.STORAGE_CHANNEL_ID}")
     print(f"⚙️ Free Download Limit: {Config.FREE_DOWNLOAD_LIMIT}/day")
 
     # Start web preview server
     run_web_preview()
-    print("🌐 Web preview running on port 5000")
+    print("🌐 Web preview running on http://0.0.0.0:5000")
 
     print("✅ Bot is running!")
     app.run()
