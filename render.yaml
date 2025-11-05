@@ -1,0 +1,30 @@
+
+services:
+  - type: web
+    name: inert-downloader-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
+      - key: BOT_TOKEN
+        sync: false
+      - key: MONGO_URI
+        sync: false
+      - key: STORAGE_CHANNEL_ID
+        sync: false
+      - key: ADMIN_IDS
+        sync: false
+      - key: FREE_DOWNLOAD_LIMIT
+        value: 2
+      - key: FREE_MAX_SIZE_MB
+        value: 100
+      - key: PREMIUM_MAX_SIZE_MB
+        value: 2000
+      - key: PAYMENT_QR_IMAGE
+        sync: false
+      - key: PYTHON_VERSION
+        value: 3.11.0
