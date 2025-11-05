@@ -8,3 +8,12 @@ pyrogram>=2.0.106
 python-dotenv>=1.2.1
 tgcrypto>=1.2.5
 yt-dlp>=2025.10.22
+aiofiles
+aiohttp
+flask
+pillow
+pymongo
+pyrogram
+python-dotenv
+tgcrypto
+yt-dlp
